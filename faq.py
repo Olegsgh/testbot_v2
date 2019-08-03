@@ -42,8 +42,8 @@ def send_welcome(message):
 
 newresult ='t'
 messages_list_new = list(mongo_logs.find())
-for message in messages_list_new[-10:]:
-newresult += message['timestamp']
+for newmessage in messages_list_new[-10:]:
+newresult += newmessage['timestamp']
 
 @bot.message_handler(commands=['showme'])
 def echo_message(message):
