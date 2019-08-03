@@ -42,14 +42,10 @@ def send_welcome(message):
 @bot.message_handler(commands=['showme'])
 def send_welcome(message):
     messages_list = list(mongo_logs.find())
-    result = '<div>There are {} messages total. The last 10 are: </div><table>'.format(len(messages_list))
-    row_template = '<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>'
-    result += row_template.format('time', 'user', 'text from user', 'response from bot')
+    result = 'There are messages total. The last 10 are:'.format(len(messages_list))
+    result += ''
     for message in messages_list[-10:]:
-        result += row_template.format(
-            message['timestamp'], message['user_nickname'], message['text'], message['response']
-        )
-    result += '</table>'
+        result += message['text']#message['timestamp'], message['user_nickname'], message['text'], message['response']
     reply_with_log(message,  result)
 
 
