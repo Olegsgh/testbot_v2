@@ -39,13 +39,15 @@ def send_welcome(message):
 def send_welcome(message):
     reply_with_log(message, "Я предпочитаю более ласковое общение!")
 
+
+newresult ='t'
+messages_list_new = list(mongo_logs.find())
+for message in messages_list_new[-10:]:
+newresult += message['timestamp']
+
 @bot.message_handler(commands=['showme'])
 def echo_message(message):
-    messages_list = list(mongo_logs.find())
-    result = 'There are messages total. The last 10 are:'
-    for message in messages_list[-10:]:
-        result += (message['timestamp'] + message['user_nickname'] + message['text'] + message['response'])
-    reply_with_log(message,  result)
+    reply_with_log(message,  newresult)
 
 
 
