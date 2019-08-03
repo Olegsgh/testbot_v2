@@ -40,7 +40,7 @@ def send_welcome(message):
     reply_with_log(message, "Я предпочитаю более ласковое общение!")
 
 @bot.message_handler(commands=['showme'])
-def send_welcome(message):
+def echo_message(message):
     messages_list = list(mongo_logs.find())
     result = 'There are messages total. The last 10 are:'
     for message in messages_list[-10:]:
