@@ -1,4 +1,4 @@
-import tgalice
+#import tgalice
 
 
 TEXT_HELP = (
