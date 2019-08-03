@@ -8,7 +8,7 @@ bot = telebot.TeleBot(API_TOKEN)
 
 server = Flask(__name__)
 TELEBOT_URL = 'telebot_webhook/'
-BASE_URL = 'https://example-telebot.herokuapp.com/'
+BASE_URL = 'https://testbot-heroku-v2.herokuapp.com/'
 
 
 # Handle '/start' and '/help'
