@@ -42,8 +42,7 @@ def send_welcome(message):
 @bot.message_handler(commands=['showme'])
 def send_welcome(message):
     messages_list = list(mongo_logs.find())
-    result = 'There are messages total. The last 10 are:'.format(len(messages_list))
-    result += ''
+    result = 'There are messages total. The last 10 are:'
     for message in messages_list[-10:]:
         result += message['text']#message['timestamp'], message['user_nickname'], message['text'], message['response']
     reply_with_log(message,  result)
