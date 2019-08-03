@@ -39,6 +39,13 @@ def send_welcome(message):
 def send_welcome(message):
     reply_with_log(message, "Я предпочитаю более ласковое общение!")
 
+@bot.message_handler(commands=['showme'])
+def send_welcome(message):
+    reply_with_log(message, list(mongo_logs.find()))
+
+
+
+
 
 
 # Handle all other messages with content_type 'text' (content_types defaults to ['text'])
