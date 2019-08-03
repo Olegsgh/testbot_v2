@@ -42,7 +42,7 @@ def send_welcome(message):
 
 @bot.message_handler(commands=['sh'])
 def echo_message(message):
-    newmessages_list = list(mongo_logs.find())[-1]
+    newmessages_list = list(mongo_logs.find())[-10]
     reply_with_log(message, newmessages_list)
 
 
