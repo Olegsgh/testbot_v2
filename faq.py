@@ -35,7 +35,7 @@ def send_welcome(message):
     reply_with_log(message, "Hi there, I am EchoBot. Just say anything nice and I'll say the exact same thing to you!")
 
 
-@bot.message_handler(commands=['сука', 'тварь'])
+@bot.message_handler(commands=['suk'])
 def send_welcome(message):
     reply_with_log(message, "Я предпочитаю более ласковое общение!")
 
