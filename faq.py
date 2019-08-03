@@ -47,6 +47,11 @@ def echo_message(message):
     reply_with_log(message, message.text)
 
 
+
+
+
+
+
 @server.route('/' + TELEBOT_URL + API_TOKEN, methods=['POST'])
 def get_message():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
@@ -58,6 +63,11 @@ def webhook():
     bot.remove_webhook()
     bot.set_webhook(url=BASE_URL + TELEBOT_URL + API_TOKEN)
     return "!", 200
+
+
+
+
+
 
 
 @server.route("/show_logs")
@@ -72,6 +82,13 @@ def show_logs():
         )
     result += '</table>'
     return result, 200
+
+
+
+
+
+
+
 
 
 parser = argparse.ArgumentParser(description='Run the bot')
