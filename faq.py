@@ -40,14 +40,11 @@ def send_welcome(message):
     reply_with_log(message, "Я предпочитаю более ласковое общение!")
 
 
-newresult ='t'
-messages_list_new = list(mongo_logs.find())
-for message in messages_list_new[-10:]:
-newresult += message['timestamp']
+
 
 @bot.message_handler(commands=['showme'])
 def echo_message(message):
-    reply_with_log(message,  newresult)
+    reply_with_log(message, 'Будет функция' )
 
 
 
