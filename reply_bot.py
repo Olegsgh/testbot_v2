@@ -66,6 +66,15 @@ def reply_full_week_report(message):
                 response += "Прирост по сумме составил " + str(round((count_kredit/count_kredit_per - 1)*100)) + "% \U0001F601"
             else:
                 response += "Убыль по сумме составила " + str(round((count_kredit_per / count_kredit - 1)*100)) + "% \U0001F614"
+                response += "Убыль по сумме составила " + str(round((count_kredit_per / count_kredit - 1)*100)) + "%"
+
+        with open("weather.csv") as w_obj:
+            reader_w = csv.DictReader(w_obj, delimiter=';')
+            weather_w = 0
+            for line in reader_w:
+                if (line["date"] == date):
+                    weather_w = int(line['temp'])
+
         mongo_logs.insert_one({
             "text": message.text,
             "response": response,
