@@ -29,7 +29,7 @@ def reply_full_week_report(message):
                 except Exception as e:
                     print('not a number')
         return "За дату " + date + " было " + count_row + " покупок на сумму " + count_kredit
-    return "Файл не найден"
+   # return "Файл не найден"
 
 def reply_kredit_week_report(message):
     date = get_date(message.text)
