@@ -67,7 +67,6 @@ def reply_full_week_report(message):
                 response += "Прирост по сумме составил " + str(round((count_kredit/count_kredit_per - 1)*100)) + "% \U0001F601"
             else:
                 response += "Убыль по сумме составила " + str(round((count_kredit_per / count_kredit - 1)*100)) + "% \U0001F614"
-                response += "Убыль по сумме составила " + str(round((count_kredit_per / count_kredit - 1)*100)) + "%"
 
         mongo_logs.insert_one({
             "text": message.text,
