@@ -41,6 +41,7 @@ def reply_full_week_report(message):
 
 def reply_kredit_week_report(message):
     date = get_date(message.text)
+    response = ""
     with open("big_test_data.csv") as f_obj:
         reader = csv.DictReader(f_obj, delimiter=',')
         count_kredit = 0
@@ -51,17 +52,35 @@ def reply_kredit_week_report(message):
                     count_kredit += kredit
                 except Exception as e:
                     print('not a number')
-        return "За дату " + date + " было покупок на сумму " + "\n " + str(count_kredit)
+        response = response + "За дату " + date + " было покупок на сумму " + "\n " + str(count_kredit)
+        mongo_logs.insert_one({
+            "text": message.text,
+            "response": response,
+            "user_nickname": message.from_user.username,
+            "timestamp": datetime.utcnow()
+        })
+        return response
+
+
 
 def reply_count_week_report(message):
     date = get_date(message.text)
+    response = ""
     with open("big_test_data.csv") as f_obj:
         reader = csv.DictReader(f_obj, delimiter=',')
         count_row = 0
         for line in reader:
             if (line["agbis_doc_date"] == date):
                 count_row += 1
-        return "За дату " + date + " было " + "\n " + str(count_row) + " покупок"
+
+        response = response + "За дату " + date + " было " + "\n " + str(count_row) + " покупок"
+        mongo_logs.insert_one({
+            "text": message.text,
+            "response": response,
+            "user_nickname": message.from_user.username,
+            "timestamp": datetime.utcnow()
+        })
+        return response
 
 
 
