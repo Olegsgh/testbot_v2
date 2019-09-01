@@ -16,7 +16,7 @@ def get_date(message):
 
 def reply_full_week_report(message):
     date = get_date(message.text)
-    with open("test_data.csv") as f_obj:
+    with open("big_test_data.csv") as f_obj:
         reader = csv.DictReader(f_obj, delimiter=',')
         count_row = 0
         count_kredit = 0
@@ -32,7 +32,7 @@ def reply_full_week_report(message):
 
 def reply_kredit_week_report(message):
     date = get_date(message.text)
-    with open("test_data.csv") as f_obj:
+    with open("big_test_data.csv") as f_obj:
         reader = csv.DictReader(f_obj, delimiter=',')
         count_kredit = 0
         for line in reader:
@@ -46,7 +46,7 @@ def reply_kredit_week_report(message):
 
 def reply_count_week_report(message):
     date = get_date(message.text)
-    with open("test_data.csv") as f_obj:
+    with open("big_test_data.csv") as f_obj:
         reader = csv.DictReader(f_obj, delimiter=',')
         count_row = 0
         for line in reader:
