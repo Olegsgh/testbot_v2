@@ -1,1 +1,1 @@
-web: python faq.py
+web: python rest_api.py
