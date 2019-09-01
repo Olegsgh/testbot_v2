@@ -13,6 +13,7 @@ import requests
  session = requests.Session()
  r = session.get(url_, timeout=5)
  print(r.text)
+
 #
 # soup = BeautifulSoup(r.content, "lxml")
 #

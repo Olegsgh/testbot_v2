@@ -5,6 +5,7 @@ import csv
 from datetime import datetime
 from pymongo import MongoClient
 
+
 MONGODB_URI = os.environ['MONGODB_URI']
 
 mongo_client = MongoClient(MONGODB_URI)
@@ -16,6 +17,7 @@ def get_date(message):
 
 def reply_full_week_report(message):
     date = get_date(message.text)
+    response = ""
     with open("big_test_data.csv") as f_obj:
         reader = csv.DictReader(f_obj, delimiter=',')
         count_row = 0
@@ -28,7 +30,15 @@ def reply_full_week_report(message):
                     count_kredit += kredit
                 except Exception as e:
                     print('not a number')
-        return "За дату " + date + " было " + "\n " + str(count_row) + " покупок " + "\n" + "на сумму " + str(count_kredit)
+
+    response = response +  "За дату " + date + " было " + "\n " + str(count_row) + " покупок " + "\n" + "на сумму " + str(count_kredit)
+        mongo_logs.insert_one({
+            "text": message.text,
+            "response": response,
+            "user_nickname": message.from_user.username,
+            "timestamp": datetime.utcnow()
+        })
+        return response
 
 def reply_kredit_week_report(message):
     date = get_date(message.text)
