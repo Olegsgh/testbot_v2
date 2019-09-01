@@ -74,6 +74,8 @@ def reply_full_week_report(message):
             for line in reader_w:
                 if (line["date"] == date):
                     weather_w = int(line['temp'])
+        response += "\n"
+        response += "\n"
         response += weather_w
         mongo_logs.insert_one({
             "text": message.text,
