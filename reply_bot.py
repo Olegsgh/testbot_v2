@@ -16,32 +16,38 @@ def get_date(message):
 
 def reply_full_week_report(message):
     date = get_date(message.text)
-    reader = csv.DictReader("test_data.csv", delimiter=',')
-    count_row = 0
-    count_kredit = 0
-    for line in reader:
-        if (line["agbis_doc_date"] == date):
-            count_row += 1
-            count_kredit += count_kredit
-    return "За дату " + date + " было " + count_row + " покупок на сумму " + count_kredit
+    with open("test_data.csv") as f_obj:
+        reader = csv.DictReader(f_obj, delimiter=',')
+        count_row = 0
+        count_kredit = 0
+        for line in reader:
+            if (line["agbis_doc_date"] == date):
+                count_row += 1
+                count_kredit += line["kredit"]
+        return "За дату " + date + " было " + count_row + " покупок на сумму " + count_kredit
+    return "Файл не найден"
 
 def reply_kredit_week_report(message):
     date = get_date(message.text)
-    reader = csv.DictReader("test_data.csv", delimiter=',')
-    count_kredit = 0
-    for line in reader:
-        if (line["agbis_doc_date"] == date):
-            count_kredit += count_kredit
-    return "За дату " + date + " было покупок на сумму " + count_kredit
+    with open("test_data.csv") as f_obj:
+        reader = csv.DictReader(f_obj, delimiter=',')
+        count_kredit = 0
+        for line in reader:
+            if (line["agbis_doc_date"] == date):
+                count_kredit += line["kredit"]
+        return "За дату " + date + " было покупок на сумму " + count_kredit
+    return "Файл не найден"
 
 def reply_count_week_report(message):
     date = get_date(message.text)
-    reader = csv.DictReader("test_data.csv", delimiter=',')
-    count_row = 0
-    for line in reader:
-        if (line["agbis_doc_date"] == date):
-            count_row += 1
-    return "За дату " + date + " было " + count_row + " покупок"
+    with open("test_data.csv") as f_obj:
+        reader = csv.DictReader(f_obj, delimiter=',')
+        count_row = 0
+        for line in reader:
+            if (line["agbis_doc_date"] == date):
+                count_row += 1
+        return "За дату " + date + " было " + count_row + " покупок"
+    return "Файл не найден"
 
 
 
