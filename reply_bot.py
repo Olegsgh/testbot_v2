@@ -37,7 +37,22 @@ def send_welcome(message):
 
 @bot.message_handler(commands=['suk'])
 def send_welcome(message):
-    reply_with_log(message, "Я предпочитаю более ласковое общение!")
+    reply_with_log(message, "я предпочитаю более ласковое общение!")
+
+
+@bot.message_handler(commands=['sh'])
+def echo_message(message):
+    newmessages_list = list(mongo_logs.find())[-10]['text']
+    reply_with_log(message, newmessages_list)
+
+
+@bot.message_handler(commands=['showme'])
+def echo_message(message):
+    reply_with_log(message, 'Ѕудет функци€')
+
+
+
+
 
 
 
@@ -76,7 +91,7 @@ def show_logs():
     result = '<div>There are {} messages total. The last 10 are: </div><table>'.format(len(messages_list))
     row_template = '<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>'
     result += row_template.format('time', 'user', 'text from user', 'response from bot')
-    for message in messages_list[-10:]:
+    for message in messages_list[-100:]:
         result += row_template.format(
             message['timestamp'], message['user_nickname'], message['text'], message['response']
         )
