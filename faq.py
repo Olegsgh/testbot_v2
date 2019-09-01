@@ -13,19 +13,12 @@ TELEBOT_URL = 'telebot_webhook/'
 BASE_URL = 'https://testbot-heroku-v2.herokuapp.com/'
 
 
-def reply_with_log(message, response):
-    mongo_logs.insert_one({
-        "text": message.text,
-        "response": response,
-        "user_nickname": message.from_user.username,
-        "timestamp": datetime.utcnow()
-    })
-    bot.reply_to(message, response)
 
 
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
-    reply_with_log(message, message.text)
+    response = reply_bot.reply_with_log(message, message.text)
+    bot.reply_to(message, response)
 
 
 
