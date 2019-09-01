@@ -12,7 +12,7 @@ mongo_db = mongo_client.get_default_database()
 mongo_logs = mongo_db.get_collection('logs')
 
 def get_date(message):
-    return re.findall(r'\d{4}-\d{2}-\d{2}', message)
+    return re.findall(r'\d{4}-\d{2}-\d{2}', message)[0]
 
 def reply_full_week_report(message):
     date = get_date(message)
