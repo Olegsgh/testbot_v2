@@ -27,6 +27,9 @@ def reply_with_log(message, response):
 def echo_message(message):
     reply_with_log(message, message.text)
 
+
+
+
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
     response = reply_bot.reply_with_log(message, "Привет, можешь подписаться на новости, либо получить отчет.")
