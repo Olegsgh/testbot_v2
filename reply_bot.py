@@ -32,12 +32,12 @@ def reply_full_week_report(message):
                     print('not a number')
 
     response = response +  "За дату " + date + " было " + "\n " + str(count_row) + " покупок " + "\n" + "на сумму " + str(count_kredit)
-    mongo_logs.insert_one({
-            "text": message.text,
-            "response": response,
-            "user_nickname": message.from_user.username,
-            "timestamp": datetime.utcnow()
-        })
+    #mongo_logs.insert_one({
+    #        "text": message.text,
+    #        "response": response,
+    #        "user_nickname": message.from_user.username,
+    #        "timestamp": datetime.utcnow()
+    #    })
     return response
 
 def reply_kredit_week_report(message):
