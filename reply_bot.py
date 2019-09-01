@@ -1,10 +1,10 @@
 import os
 import re
 import csv
+import generator_data
 
 from datetime import datetime
 from pymongo import MongoClient
-
 
 MONGODB_URI = os.environ['MONGODB_URI']
 
@@ -12,16 +12,27 @@ mongo_client = MongoClient(MONGODB_URI)
 mongo_db = mongo_client.get_default_database()
 mongo_logs = mongo_db.get_collection('logs')
 
+def get_previous_date(date):
+    index = generator_data.dates.index(date)
+    if index >= 1:
+        return generator_data.dates[index-1]
+    else:
+        return "-1"
+
+
 def get_date(message):
     return re.findall(r'\d{4}-\d{2}-\d{2}', message)[0]
 
 def reply_full_week_report(message):
     date = get_date(message.text)
+    previous_date = get_previous_date(date)
     response = ""
     with open("big_test_data.csv") as f_obj:
         reader = csv.DictReader(f_obj, delimiter=',')
         count_row = 0
         count_kredit = 0
+        count_row_per = 0
+        count_kredit_per = 0
         for line in reader:
             if (line["agbis_doc_date"] == date):
                 count_row += 1
@@ -30,14 +41,36 @@ def reply_full_week_report(message):
                     count_kredit += kredit
                 except Exception as e:
                     print('not a number')
-    response = response +  "За дату " + date + " было " + "\n " + str(count_row) + " покупок " + "\n" + "на сумму " + str(count_kredit)
-    mongo_logs.insert_one({
+            if (line["agbis_doc_date"] == previous_date):
+                count_row_per += 1
+                try:
+                    kredit = int(line['kredit'])
+                    count_kredit_per += kredit
+                except Exception as e:
+                    print('not a number')
+        response = "За дату " + date + " было " + "\n " + str(count_row) + " покупок " + "\n" + "на сумму " + str(count_kredit)
+        if (previous_date != "-1"):
+            response += "\n "
+            response += "За предыдущую дату " + previous_date + " было " + "\n " + str(count_row_per) + " покупок " + "\n" + "на сумму " + str(
+            count_kredit_per)
+            response += "\n "
+            if (count_row - count_row_per > 0):
+                response += "Прирост по количеству составил " + str(count_row/count_row_per - 1)
+                response += "\n "
+            else:
+                response += "Убыль по количеству составила " + str(count_row_per / count_row - 1)
+                response += "\n "
+            if (count_kredit - count_kredit_per > 0):
+                response += "Прирост по сумме составил " + str(count_kredit/count_kredit_per - 1)
+            else:
+                response += "Убыль по сумме составила " + str(count_kredit_per / count_kredit - 1)
+        mongo_logs.insert_one({
             "text": message.text,
             "response": response,
             "user_nickname": message.from_user.username,
             "timestamp": datetime.utcnow()
         })
-    return response
+        return response
 
 def reply_kredit_week_report(message):
     date = get_date(message.text)
