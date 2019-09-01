@@ -43,9 +43,12 @@ def reply_count_week_report(message):
             count_row += 1
     return "За дату " + date + " было " + count_row + " покупок"
 
+
+
 def reply_with_log(message, response):
+    response = response + " - вот херь"
     mongo_logs.insert_one({
-        "text": message.text+" - вот херь",
+        "text": message.text,
         "response": response,
         "user_nickname": message.from_user.username,
         "timestamp": datetime.utcnow()
