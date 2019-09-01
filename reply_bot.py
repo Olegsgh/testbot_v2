@@ -23,7 +23,11 @@ def reply_full_week_report(message):
         for line in reader:
             if (line["agbis_doc_date"] == date):
                 count_row += 1
-                count_kredit += line["kredit"]
+                try:
+                    kredit = int(line['kredit'])
+                    count_kredit += kredit
+                except Exception as e:
+                    print('not a number')
         return "За дату " + date + " было " + count_row + " покупок на сумму " + count_kredit
     return "Файл не найден"
 
@@ -34,7 +38,11 @@ def reply_kredit_week_report(message):
         count_kredit = 0
         for line in reader:
             if (line["agbis_doc_date"] == date):
-                count_kredit += line["kredit"]
+                try:
+                    kredit = int(line['kredit'])
+                    count_kredit += kredit
+                except Exception as e:
+                    print('not a number')
         return "За дату " + date + " было покупок на сумму " + count_kredit
     return "Файл не найден"
 
