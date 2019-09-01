@@ -55,15 +55,15 @@ def reply_full_week_report(message):
             count_kredit_per)
             response += "\n "
             if (count_row - count_row_per > 0):
-                response += "Прирост по количеству составил " + str(count_row/count_row_per - 1)
+                response += "Прирост по количеству составил " + str(round((count_row/count_row_per - 1)*100)) + "%"
                 response += "\n "
             else:
-                response += "Убыль по количеству составила " + str(count_row_per / count_row - 1)
+                response += "Убыль по количеству составила " + str(round((count_row_per / count_row - 1)*100)) + "%"
                 response += "\n "
             if (count_kredit - count_kredit_per > 0):
-                response += "Прирост по сумме составил " + str(count_kredit/count_kredit_per - 1)
+                response += "Прирост по сумме составил " + str(round((count_kredit/count_kredit_per - 1)*100)) + "%"
             else:
-                response += "Убыль по сумме составила " + str(count_kredit_per / count_kredit - 1)
+                response += "Убыль по сумме составила " + str(round((count_kredit_per / count_kredit - 1)*100)) + "%"
         mongo_logs.insert_one({
             "text": message.text,
             "response": response,
