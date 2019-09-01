@@ -17,22 +17,22 @@ def send_welcome(message):
     response = reply_bot.reply_with_log(message, "Привет, можешь подписаться на новости, либо получить отчет.")
     bot.reply_to(message, response)
 
-@bot.message_handler(regexp="Отчёт \d{2}-\d{2}-\d{4}")
+@bot.message_handler(regexp="Отчёт \d{4}-\d{2}-\d{2}")
 def send_welcome(message):
     response = reply_bot.reply_full_week_report(message)
     bot.reply_to(message, response)
 
-@bot.message_handler(regexp="Отчёт \d{2}-\d{2}-\d{4} сумма")
+@bot.message_handler(regexp="Отчёт \d{4}-\d{2}-\d{2} сумма")
 def send_welcome(message):
     response = reply_bot.reply_kredit_week_report(message)
     bot.reply_to(message, response)
 
-@bot.message_handler(regexp="Отчёт \d{2}-\d{2}-\d{4} сумма количество")
+@bot.message_handler(regexp="Отчёт \d{4}-\d{2}-\d{2} сумма количество")
 def send_welcome(message):
     response = reply_bot.reply_full_week_report(message)
     bot.reply_to(message, response)
 
-@bot.message_handler(regexp="Отчёт \d{2}-\d{2}-\d{4} количество")
+@bot.message_handler(regexp="Отчёт \d{4}-\d{2}-\d{2} количество")
 def send_welcome(message):
     response = reply_bot.reply_count_week_report(message)
     bot.reply_to(message, response)
