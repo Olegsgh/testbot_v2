@@ -49,21 +49,24 @@ def reply_full_week_report(message):
                     count_kredit_per += kredit
                 except Exception as e:
                     print('not a number')
-        response = "За дату " + date + " было " + "\n " + str(count_row) + " покупок " + "\n" + "на сумму " + str(count_kredit)
+        response = "За дату " + date + " было " + "\n" + str(count_row) + " покупок " + "\n" + "на сумму " + str(count_kredit)
         if (previous_date != "-1"):
             response += "\n "
-            response += "За предыдущую дату " + previous_date + " было " + "\n " + str(count_row_per) + " покупок " + "\n" + "на сумму " + str(
+            response += "\n"
+            response += "За предыдущую дату " + previous_date + " было " + "\n" + str(count_row_per) + " покупок " + "\n" + "на сумму " + str(
             count_kredit_per)
-            response += "\n "
+            response += "\n"
+            response += "\n"
             if (count_row - count_row_per > 0):
-                response += "Прирост по количеству составил " + str(round((count_row/count_row_per - 1)*100)) + "%"
-                response += "\n "
+                response += "Прирост по количеству составил " + str(round((count_row/count_row_per - 1)*100)) + "% \U0001F601"
+                response += "\n"
             else:
-                response += "Убыль по количеству составила " + str(round((count_row_per / count_row - 1)*100)) + "%"
-                response += "\n "
+                response += "Убыль по количеству составила " + str(round((count_row_per / count_row - 1)*100)) + "% \U0001F614"
+                response += "\n"
             if (count_kredit - count_kredit_per > 0):
-                response += "Прирост по сумме составил " + str(round((count_kredit/count_kredit_per - 1)*100)) + "%"
+                response += "Прирост по сумме составил " + str(round((count_kredit/count_kredit_per - 1)*100)) + "% \U0001F601"
             else:
+                response += "Убыль по сумме составила " + str(round((count_kredit_per / count_kredit - 1)*100)) + "% \U0001F614"
                 response += "Убыль по сумме составила " + str(round((count_kredit_per / count_kredit - 1)*100)) + "%"
 
         with open("weather.csv") as w_obj:
@@ -71,7 +74,9 @@ def reply_full_week_report(message):
             for line in reader_w:
                 if (line["date"] == date):
                     weather_w = int(line['temp'])
-        response += str(weather_w)
+        response += "\n"
+        response += "\n"
+        response += weather_w
         mongo_logs.insert_one({
             "text": message.text,
             "response": response,
