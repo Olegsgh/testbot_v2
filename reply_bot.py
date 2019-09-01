@@ -28,7 +28,7 @@ def reply_full_week_report(message):
                     count_kredit += kredit
                 except Exception as e:
                     print('not a number')
-        return "За дату " + date + " было " + "\n" + str(count_row) + " покупок на сумму " + str(count_kredit)
+        return "За дату " + date + " было " + "\n •" + str(count_row) + " покупок " + "\n" + "• на сумму " + str(count_kredit)
 
 def reply_kredit_week_report(message):
     date = get_date(message.text)
@@ -42,7 +42,7 @@ def reply_kredit_week_report(message):
                     count_kredit += kredit
                 except Exception as e:
                     print('not a number')
-        return "За дату " + date + " было покупок на сумму " + "\n" + str(count_kredit)
+        return "За дату " + date + " было покупок на сумму " + "\n " + str(count_kredit)
 
 def reply_count_week_report(message):
     date = get_date(message.text)
@@ -52,7 +52,7 @@ def reply_count_week_report(message):
         for line in reader:
             if (line["agbis_doc_date"] == date):
                 count_row += 1
-        return "За дату " + date + " было " + "\n" + str(count_row) + " покупок"
+        return "За дату " + date + " было " + "\n •" + str(count_row) + " покупок"
 
 
 
