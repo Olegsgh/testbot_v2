@@ -76,7 +76,7 @@ def reply_full_week_report(message):
                     weather_w = int(line['temp'])
         response += "\n"
         response += "\n"
-        response += weather_w
+        response += "Погода сегодня "+str(weather_w)
         mongo_logs.insert_one({
             "text": message.text,
             "response": response,
