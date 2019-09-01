@@ -15,7 +15,7 @@ def get_date(message):
     return re.findall(r'\d{4}-\d{2}-\d{2}', message)[0]
 
 def reply_full_week_report(message):
-    date = get_date(message)
+    date = get_date(message.text)
     reader = csv.DictReader("test_data.csv", delimiter=',')
     count_row = 0
     count_kredit = 0
@@ -26,7 +26,7 @@ def reply_full_week_report(message):
     return "За дату " + date + " было " + count_row + " покупок на сумму " + count_kredit
 
 def reply_kredit_week_report(message):
-    date = get_date(message)
+    date = get_date(message.text)
     reader = csv.DictReader("test_data.csv", delimiter=',')
     count_kredit = 0
     for line in reader:
@@ -35,7 +35,7 @@ def reply_kredit_week_report(message):
     return "За дату " + date + " было покупок на сумму " + count_kredit
 
 def reply_count_week_report(message):
-    date = get_date(message)
+    date = get_date(message.text)
     reader = csv.DictReader("test_data.csv", delimiter=',')
     count_row = 0
     for line in reader:

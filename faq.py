@@ -12,16 +12,10 @@ server = Flask(__name__)
 TELEBOT_URL = 'telebot_webhook/'
 BASE_URL = 'https://testbot-heroku-v2.herokuapp.com/'
 
-
-
-
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
     response = reply_bot.reply_with_log(message, message.text)
     bot.reply_to(message, response)
-
-
-
 
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
