@@ -46,6 +46,14 @@ def echo_message(message):
     reply_with_log(message, newmessages_list)
 
 
+
+@bot.message_handler(commands=['t12'])
+def echo_message(message):
+    newmessages_list = list(mongo_logs.find())[-1]['text']
+    reply_with_log(message, newmessages_list)
+
+
+
 @bot.message_handler(commands=['showme'])
 def echo_message(message):
     reply_with_log(message, 'Ѕудет функци€')
@@ -100,7 +108,7 @@ def show_logs():
 
 
 
-#test
+
 
 
 
