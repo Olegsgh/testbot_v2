@@ -12,6 +12,21 @@ server = Flask(__name__)
 TELEBOT_URL = 'telebot_webhook/'
 BASE_URL = 'https://testbot-heroku-v2.herokuapp.com/'
 
+
+def reply_with_log(message, response):
+    mongo_logs.insert_one({
+        "text": message.text,
+        "response": response,
+        "user_nickname": message.from_user.username,
+        "timestamp": datetime.utcnow()
+    })
+    bot.reply_to(message, response)
+
+
+@bot.message_handler(func=lambda message: True)
+def echo_message(message):
+    reply_with_log(message, message.text)
+
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
     response = reply_bot.reply_with_log(message, "Привет, можешь подписаться на новости, либо получить отчет.")
@@ -68,3 +83,8 @@ else:
     # webhook should be set first
     webhook()
     server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+
+
+
+
+
