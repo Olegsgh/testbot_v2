@@ -69,14 +69,6 @@ def reply_full_week_report(message):
                 response += "Убыль по сумме составила " + str(round((count_kredit_per / count_kredit - 1)*100)) + "% \U0001F614"
                 response += "Убыль по сумме составила " + str(round((count_kredit_per / count_kredit - 1)*100)) + "%"
 
-        with open("weather.csv") as w_obj:
-            reader_w = csv.DictReader(w_obj, delimiter=';')
-            for line in reader_w:
-                if (line["date"] == date):
-                    weather_w = int(line['temp'])
-        response += "\n"
-        response += "\n"
-        response += "Погода сегодня "+str(weather_w)
         mongo_logs.insert_one({
             "text": message.text,
             "response": response,
