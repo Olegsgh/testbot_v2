@@ -27,7 +27,6 @@ def get_date(message):
 def reply_full_week_report(message):
     date = get_date(message.text)
     previous_date = get_previous_date(date)
-    weather_w = 0
     response = ""
     with open("big_test_data.csv") as f_obj:
         reader = csv.DictReader(f_obj, delimiter=',')
